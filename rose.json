@@ -1,0 +1,46 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A simple radial chart with embedded data.",
+  "width": "container",
+  "height": "container",
+  "title": {
+    "text": "Income vs Drunk",
+    "fontSize": 20,
+    "font": "Bernard MT Condensed"
+  },
+  "data": {
+    "url": "incomeDrunk.csv"
+  },
+  "layer": [
+    {
+      "mark": { "type": "arc", "innerRadius": 80, "stroke": "#fff" }
+    },
+    {
+      "mark": { "type": "text", "radiusOffset": 10, "tooltip": true },
+      "encoding": {
+        "text": { "field": "income", "type": "nominal" },
+        "stroke": { "value": null },
+        "color": { "value": "#F99417" }
+      }
+    }
+  ],
+  "encoding": {
+    "tooltip": [
+      { "field": "income", "type": "nominal" },
+      { "field": "drunk", "type": "quantitative" }
+    ],
+    "theta": { "field": "drunk", "type": "quantitative", "stack": "normalize" },
+    "radius": {
+      "field": "drunk",
+      "type": "quantitative"
+    },
+    "stroke": { "value": "lightgray" },
+    "color": {
+      "field": "income",
+      "type": "nominal",
+      "scale": {
+        "scheme": "blues"
+      }
+    }
+  }
+}

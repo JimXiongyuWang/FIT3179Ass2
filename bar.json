@@ -1,0 +1,28 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "axis": { "grid": false },
+    "background": "white",
+    "view": { "cornerRadius": 20, "stroke": null },
+    "padding": 15
+  },
+  "data": { "url": "alcohol-consumption.csv" },
+  "width": "container",
+  "height": "container",
+  "title": {
+    "text": "Total Alcohol consumption trend  by year",
+    "fontSize": 20,
+    "font": "Bernard MT Condensed"
+  },
+  "mark": {
+    "type": "bar",
+    "cornerRadiusTopLeft": 3,
+    "cornerRadiusTopRight": 3,
+    "tooltip":true
+  },
+  "encoding": {
+    "x": { "field": "Year", "type": "ordinal" },
+    "y": { "field": "consumption", "type": "quantitative", "aggregate": "sum" },
+    "fill": { "value": "#0A6EBD" }
+  }
+}

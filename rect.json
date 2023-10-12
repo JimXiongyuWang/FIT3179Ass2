@@ -1,0 +1,47 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Stock prices of 5 Tech Companies over Time.",
+  "config": {
+    "axis": { "grid": false },
+    "background": "white",
+    "view": { "cornerRadius": 20, "stroke": null },
+    "padding": 15
+  },
+  "data": { "url": "alcohol-consumption-vs-gdp-per-capita.csv" },
+ 
+  "width": "container",
+  "height": "container",
+  "title": {
+    "text": "Relationship between alcohol consumption and death",
+    "fontSize": 20,
+    "font": "Bernard MT Condensed"
+  },
+  "transform": [
+    {
+      "filter": {
+        "and": [
+          { "field": "deaths", "valid": true },
+          { "field": "consumption", "valid": true }
+        ]
+      }
+    }
+  ],
+  "mark": { "type": "rect", "tooltip": true },
+  "encoding": {
+    "x": {
+      "bin": { "maxbins": 20 },
+      "field": "deaths"
+    },
+    "y": {
+      "bin": { "maxbins": 20 },
+      "field": "consumption"
+    },
+    "color": {
+      "aggregate": "count",
+      "type": "quantitative",
+      "scale": {
+        "range": ["#0A6EBD", "#A1C2F1"]
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "legend": { "orient": "top" },
+    "axis": { "grid": false },
+    "background": "white",
+    "view": { "cornerRadius": 20, "stroke": null },
+    "padding": 15
+  },
+  "data": { "url": "ageDrunk.csv" },
+  "width": "container",
+  "height": "container",
+  "title": {
+    "text": "Alcohol relative deaths by age",
+    "fontSize": 20,
+    "font": "Bernard MT Condensed"
+  },
+  "mark": { "type": "area", "tooltip": true },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "ShareofDrunk",
+      "type": "quantitative",
+      "axis": null,
+      "stack": "normalize"
+    },
+    "color": { "field": "Age", "scale": { "scheme": "category20b" } }
+  }
+}

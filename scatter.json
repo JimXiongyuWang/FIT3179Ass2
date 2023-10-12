@@ -1,0 +1,47 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "scatterplot",
+  "config": {
+    "axis": { "grid": false },
+    "background": "white",
+    "view": { "cornerRadius": 20, "stroke": null },
+    "padding": 15
+  },
+  "width": "container",
+  "height": "container",
+  "title": {
+    "text": "Alcohol consumption per person (2018)",
+    "fontSize": 20,
+    "font": "Bernard MT Condensed"
+  },
+  "data": {
+    "url": "alcohol-consumption-vs-gdp-per-capita.csv"
+  },
+  "mark": { "type": "point", "tooltip": true },
+  "encoding": {
+    "x": {
+      "field": "consumption",
+      "type": "quantitative",
+      "scale": { "zero": false }
+    },
+    "y": {
+      "field": "GDPperCapita",
+      "type": "quantitative",
+      "scale": { "zero": false }
+    },
+    "tooltip": [
+      {
+        "field": "Entity"
+      },
+      {
+        "field": "consumption"
+      },
+      {
+        "field": "GDPperCapita"
+      }
+    ],
+    "fill": { "value": "#0A6EBD" },
+    "color": { "value": "#E7CEA6" },
+    "size": { "value": 55 }
+  }
+}

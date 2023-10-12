@@ -1,0 +1,68 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {
+    "legend": { "orient": "top-left", "legendX": 200, "legendY": 50 },
+    "axis": { "grid": false },
+    "background": "white",
+    "view": { "cornerRadius": 20, "stroke": null },
+    "padding": 15
+  },
+  "width": "container",
+  "height": "container",
+  "data": { "url": "alcohol-expenditure.csv" },
+  "title": {
+    "text": "Alcohol expenditure, United States, 1935 to 2014",
+    "fontSize": 20,
+    "font": "Bernard MT Condensed"
+  },
+
+  "transform": [
+    {
+      "filter": { "field": "Year", "gte": {"expr":"yearvalue"} }
+    },
+
+    {
+      "fold": [
+        "Other (at home) (USDA, 2018)",
+        "Food stores (at home) (USDA, 2018)",
+        "Liquor stores (at home) (USDA, 2018)",
+        "All other (away from home) (USDA, 2018)",
+        "Hotels & motels (away from home) (USDA, 2018)",
+        "Restaurants & bars (away from home) (USDA, 2018)"
+      ]
+    }
+  ],
+  "mark": { "type": "area", "tooltip": true },
+  "params": [
+    {
+      "name": "yearvalue",
+      "value":1953,
+      "bind": { "input": "range", "min": 1990, "max": 2016, "step": 1 }
+    },
+    {
+      "name": "industry",
+      "select": { "type": "point", "fields": ["key"] },
+      "bind": "legend"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "nominal"
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "value",
+      "stack": "center",
+      "axis": null
+    },
+    "color": {
+      "field": "key",
+      "scale": { "scheme": "blues" }
+    },
+    "opacity": {
+      "condition": { "param": "industry", "value": 1 },
+      "value": 0.2
+    }
+  }
+}

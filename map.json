@@ -1,0 +1,130 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "config": {
+    "axis": { "grid": false },
+    "background": "white",
+    "view": { "cornerRadius": 20, "stroke": null },
+    "padding": 15
+  },
+
+  "width": "container",
+
+  "height": "container",
+  "title": {
+    "text": "Total alcohol consumption per capita (liters of pure alcohol, projected estimates, 15+ years of age) 2018",
+    "fontSize": 20,
+    "font": "Bernard MT Condensed"
+  },
+
+  "projection": { "type": "naturalEarth1" },
+
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/JimXiongyuWang/FIT3179Week9Homework/main/js/ne_110m_ocean.json",
+        "format": {
+          "type": "topojson",
+          "feature": "oceans"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "skyblue"
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/JimXiongyuWang/FIT3179Week9Homework/main/js/ne_110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_graticules_30"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "lightgray"
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/mtraynham/natural-earth-topo/master/topojson/ne_110m_admin_0_countries.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_admin_0_countries"
+        }
+      },
+
+      "params": [
+        {
+          "name": "continent",
+
+          "select": { "type": "point", "fields": ["properties.continent"] },
+          "bind": {
+            "input": "select",
+            "options": [
+              null,
+              "Europe",
+              "Asia",
+              "Africa",
+              "North America",
+              "South America",
+              "Oceania",
+              "Antarctica"
+            ]
+          }
+        },
+        {
+          "name": "grid",
+          "select": "interval",
+          "bind": "scales"
+        }
+      ],
+
+      "transform": [
+        {
+          "filter": { "param": "continent" }
+        },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv"
+            },
+            "key": "Entity",
+            "fields": ["Year", "consumption"]
+          }
+        }
+      ],
+
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightgray",
+        "stroke": "gray",
+        "tooltip": true
+      },
+      "encoding": {
+        "fill": {
+           
+          "field": "consumption",
+          "type": "quantitative",
+          "scale": {
+            "range": ["#A1C2F1", "#0A6EBD"]
+          }
+        },
+
+        "tooltip": [
+          {
+            "field": "properties.name",
+            "type": "nominal"
+          },
+          {
+            "field": "consumption",
+            "type": "quantitative"
+          }
+        ]
+      }
+    }
+  ]
+}
